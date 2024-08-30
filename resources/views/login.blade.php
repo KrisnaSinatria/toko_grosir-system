@@ -7,6 +7,7 @@
     @vite('resources/css/app.css')
     <title>Login</title>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css" rel="stylesheet">
 </head>
 <body class="overflow-x-hidden flex items-center h-screen text-black">
     <div class="w-[90%] mx-auto flex justify-center items-center">
@@ -21,33 +22,52 @@
             <div class="flex flex-col gap-2">
               <form action="" method="post">
                  @csrf
-                <div class="flex flex-col gap-3 sm:gap-5 lg:gap-6">
-                    <div class="font-medium bg-secondary rounded-md p-2 sm:p-3 md:p-2 lg:p-3">
-                        <input class="bg-secondary outline-none w-full text-xs sm:text-sm md:text-xs lg:text-sm" type="text" name="email" id="email" placeholder="Masukkan E-Mail" title="email" autocomplete="off"  required value="{{ old('email') }}">
-                        @error('email')
+                <div class="flex flex-col gap-3 sm:gap-4 py-2">
                     <div class="">
-                      <p class="">{{ $message }}</p>
-                    </div>
-                    @enderror
-                      </div>  
-                    <div class="font-medium bg-secondary rounded-md p-2 sm:p-3 md:p-2 lg:p-3">
-                        <input class="bg-secondary outline-none w-full text-xs sm:text-sm md:text-xs lg:text-sm" type="password" name="password" id="password" placeholder="Masukkan Pasword" title="Password" required>
+                      <input class="font-medium bg-white rounded-md p-2 sm:p-3 md:p-2 lg:p-2.5 outline-none w-full text-xs sm:text-sm md:text-[13px]" type="text" name="email" id="email" placeholder="Masukkan E-Mail" title="email" autocomplete="off"  required value="{{ old('email') }}">
+                      @error('email')
+                      <div class="mt-2">
+                        <p class="text-red-500 text-sm">{{ $message }}</p>
+                      </div>
+                      @enderror
+                    </div>  
+                    <div class="">
+                        <input class="font-medium bg-white rounded-md p-2 sm:p-3 md:p-2 lg:p-2.5 outline-none w-full text-xs sm:text-sm md:text-[13px]" type="password" name="password" id="password" placeholder="Masukkan Pasword" title="Password" required>
                         @error('password')
-                        <div class="">
+                        <div class="mt-2 text-red-500 text-sm">
                           {{ $message }}
                         </div>
                         @enderror
                     </div>
                 </div>
                 <div class="mt-5 flex flex-col items-center gap-2 sm:mt-7">
-                  <button type="submit" name="login" class="bg-primary w-full rounded-md p-3 sm:mb-2">
-                    <h1 class="text-center text-sm font-semibold sm:text-base md:text-sm">Daftar</h1>
+                  <button type="submit" name="login" class="bg-secondary w-full rounded-md py-2.5 sm:mb-2">
+                    <h1 class="text-center text-white text-sm font-semibold sm:text-base md:text-sm">Daftar</h1>
                   </button>
-                  <a href="signUp" class="font-medium text-[10px] opacity-65 sm:text-[13px]">Belum Mempunyai Akun? <span class="font-semibold text-primary opacity-100">Buat Akun</span></a>
-                </div>
+                  </div>
               </form>
             </div>
         </div>
     </div>
-  </body>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.all.min.js"></script>
+
+    @if (session('loginError'))
+    <script>
+        Swal.fire({
+            title: 'Error!',
+            text: '{{ session('loginError') }}',
+            icon: 'error',
+            confirmButtonText: 'Kembali'
+        });
+    </script>
+    @elseif (session('logoutAlert'))
+        <script>
+            Swal.fire({
+                title: 'Success!',
+                text: '{{ session('logoutAlert') }}',
+                icon: 'success',
+                confirmButtonText: 'Kembali'
+            });
+        </script>
+    @endif    
 </html>

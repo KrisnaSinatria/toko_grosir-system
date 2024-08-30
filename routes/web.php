@@ -23,9 +23,9 @@ use App\Http\Controllers\ProductCategoryController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('login');
-// });
+Route::get('/', function () {
+    return view('login');
+});
 
 Route::get('/',  [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/',  [LoginController::class, 'authenticate']);

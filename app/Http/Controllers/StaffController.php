@@ -98,7 +98,7 @@ class StaffController extends Controller
         }
         
         
-        return redirect('dashboard/staff')->with('updateStaffSuccess', 'Staff updated successfully');
+        return redirect('dashboard/staff')->with('updateStaff', 'Staff updated successfully');
     }
 
     /**
@@ -106,6 +106,7 @@ class StaffController extends Controller
      */
     public function destroy(Staff $staff)
     {
-        //
+        Staff::destroy($staff->id);
+        return redirect('/dashboard/staff')->with('deleteStaff', 'hapus supplier berhasil');
     }
 }

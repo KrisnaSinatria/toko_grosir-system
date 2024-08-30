@@ -73,7 +73,7 @@ class InventoryController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the\ specified resource.
      */
     public function edit(Inventory $inventory)
     {
@@ -92,27 +92,26 @@ class InventoryController extends Controller
         $validatedData = $request->validate([
             'id_product' => 'required|exists:products,id',
             'id_supplier' => 'required|exists:suppliers,id',
-            'stock' => 'required|integer|min:1',
+            'stock' => 'required|integer',
             'order_date' => 'required|date',
-           ]);
+        ]);
 
-           $stock = Product::find($validatedData['id_product']);
-           //    $product->stock += $validatedData['stock'];
-           
-          
-           
-           
-           if($request->input('operation') == 'plus'){
-               $stock->stock += $request->finalstock;
-               $stock->save();
-           }else{
+        $stock = Product::find($validatedData['id_product']);
+        //    $product->stock += $validatedData['stock'];
+        
+        
+        
+        if($request->input('operation') == 'plus'){
+            $stock->stock += $request->finalstock;
+            $stock->save();
+        }else{
             if($stock->stock < $request->finalstock){
                 return redirect()->back()->with('errorStock', 'Pengoperasian stock tidak valid.');
             }else{
-            $stock->stock -= $request->finalstock;
-            $stock->save();
+                $stock->stock -= $request->finalstock;
+                $stock->save();
             }
-           }
+        }
 
         $validatedData['stock'] = $stock->stock;
         Inventory::where('id', $inventory->id)->update($validatedData);
@@ -124,7 +123,7 @@ class InventoryController extends Controller
      */
     public function destroy(Inventory $inventory)
     {
-        Inventory::destroy($inventory->id);
-        return redirect('/dashboard/inventory')->with('deleteInventory', 'hapus inventaris berhasil');
+        // Inventory::destroy($inventory->id);
+        // return redirect('/dashboard/inventory')->with('deleteInventory', 'hapus inventaris berhasil');
     }
 }

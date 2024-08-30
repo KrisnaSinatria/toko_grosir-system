@@ -54,6 +54,7 @@ class TransactionHistoryController extends Controller
         $history->load('products');
         $selectedProductIds = $history->products->pluck('id')->toArray();
         return view('dashboard.transaction.historyTransaction.edit',[
+
             'history' => $history,
             'products' => $products,
             'selectedProductIds' => $selectedProductIds,

@@ -38,6 +38,7 @@ class ProductCategoryController extends Controller
             'name_category' => 'required|max:255',
             'slug_category' => 'required|max:255',
         ]);
+
         Category::create($validatedData);
        return redirect('/dashboard/product/category')->with('createCategory', 'pembuatan category berhasil');
     }
@@ -70,7 +71,7 @@ class ProductCategoryController extends Controller
             'slug_category' => 'required',
         ]);
 
-        Category::where('slug_category', $category->slug_category)->update($validatedData);
+        Category::where('id', $category->id)->update($validatedData);
         return redirect('/dashboard/product/category')->with('updateCategory', 'update category berhasil');
     }
 

@@ -40,11 +40,27 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Product::create([
-            'id_product' => '201731991',
+            'code_product' => '2017319',
             'id_category' => '1',
             'name_product' => 'Pillow',
             'slug_product' => 'pillow',
             'price' => '2000',
+        ]);
+
+        Product::create([
+            'code_product' => '2849224',
+            'id_category' => '1',
+            'name_product' => 'Chiki Roll',
+            'slug_product' => 'chiki-roll',
+            'price' => '3500',
+        ]);
+
+        Product::create([
+            'code_product' => '2421341',
+            'id_category' => '2',
+            'name_product' => 'Mizone',
+            'slug_product' => 'mizone',
+            'price' => '5000',
         ]);
 
         Supplier::create([

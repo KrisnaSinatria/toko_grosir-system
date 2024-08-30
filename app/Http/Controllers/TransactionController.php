@@ -37,10 +37,15 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
+        do {
+            $code = random_int(1000000, 9999999);
+        } while (Transaction::where("code_transaction", "=", $code)->first());
+
         $validatedData = $request->validate([
+            'code_transaction' => 'int',
             'paid_amount' => 'required',
         ]);
-        
+
         $totalAmount = 0;
         $productQuantities = [];
     
@@ -65,8 +70,10 @@ class TransactionController extends Controller
         if ($paidAmount < $totalAmount) {
             return redirect()->back()->with('errorTransaction', 'pembayaran tidak valid');
         }
+        
     
         $transaction = Transaction::create([
+            'code_transaction' => $code,
             'total_amount' => $totalAmount,
             'paid_amount' => $paidAmount,
             'change_amount' => $changeAmount,
@@ -122,43 +129,5 @@ class TransactionController extends Controller
         //
     }
 
-    // public function search(Request $request)
-    // {
-    //     if ($request->ajax()) {
-    //         $data=Transaction::where('id_product','like','%'.$request->search."%")
-    //         ->orwhere('slug_product','like','%'.$request->search."%")->get();
-    //         $output .= '';
-    //         if (count($data) > 0) {
-    //             $output .= '
-    //             <table class="table-auto w-full">
-    //                 <thead>
-    //                     <tr>
-    //                         <th class="px-4 py-2 bg-gray-500 text-black">Id</th>
-    //                         <th class="px-4 py-2 bg-gray-500 text-black">Id Produk</th>
-    //                         <th class="px-4 py-2 bg-gray-500 text-black">Kategori</th>
-    //                         <th class="px-4 py-2 bg-gray-500 text-black">Produk</th>
-    //                         <th class="px-4 py-2 bg-gray-500 text-black">Harga</th>
-    //                     </tr>
-    //                 </thead>
-    //                 <tbody>';
-    //             foreach ($data as $product) {
-    //                 $output .= '
-    //                     <tr class="bg-gray-100 hover:bg-gray-500">
-    //                         <td class="border px-4 py-2">' . $product->id . '</td>
-    //                         <td class="border px-4 py-2">' . $product->id_product . '</td>
-    //                         <td class="border px-4 py-2">' . $product->category->name_category . '</td>
-    //                         <td class="border px-4 py-2">' . $product->name_product . '</td>
-    //                         <td class="border px-4 py-2">' . $product->price . '</td>
-    //                     </tr>';
-    //             }
-    //             $output .= '</tbody>
-    //             </table>';
-    //         } else {
-    //             $output .= '<li class="list-group-item">No results found</li>';
-    //         }
-
-    //         return $output;
-    //     }
-    // }
-
+   
 }

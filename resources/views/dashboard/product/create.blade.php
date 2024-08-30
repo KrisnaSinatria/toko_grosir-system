@@ -1,217 +1,105 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="icon" type="image/svg+xml" href="/img/logo (2).svg">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    @vite('resources/css/app.css')
-    <title>Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-</head>
-<body class="font-inter">
-    <!-- start: Sidebar -->
-    <div class="fixed left-0 top-0 w-64 h-full bg-white p-4 z-50 sidebar-menu transition-transform">
-        <a href="" class="items-center ml-4 flex gap-2">
-            <img src="" alt="" class="flex my-6 w-10 h-10 rounded-full">
-            <span class="text-lg font-medium text-gray-950">Stellar Hotel</span>
-        </a>
-        <ul class="mt-4">
-            @can('admin')
-            <li class="mb-1 group">
-                <a href="/dashboard" class="flex items-center py-2 px-4 text-gray-600 rounded-2xl group-[.active]:text-gray-900 group-[.selected]:bg-slate-100 group-[.selected]:text-gray-100">
-                    <i class="ri-dashboard-line mr-3 text-lg font-semibold group-[.active]:text-sky-600"></i>
-                    <span class="text-sm font-semibold">Dashboard</span>
-                </a>
-            </li>
-            <li class="mb-1 group active">
-                <a href="/dashboard/product" class="flex items-center py-2 px-4 text-gray-600 hover:bg-slate-100 hover:text-sky-500 rounded-2xl hover:font-semibold group-[.active]:text-gray-900 group-[.selected]:bg-slate-100 group-[.selected]:text-sky-500">
-                    <i class="ri-hotel-bed-line mr-3 text-lg"></i>
-                    <span class="text-sm">Produk</span>
-                </a>
-                <ul class="pl-7 mt-2 group-[.selected]:block">
-                    <li class="mb-4">
-                        <a href="/dashboard/product/category" class="text-gray-500 text-sm flex items-center hover:text-black before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3">Kategori</a>
-                    </li> 
-                </ul>
-            </li>
-            <li class="mb-1 group">
-                <a href="/dashboard/supplier" class="flex items-center py-2 px-4 text-gray-600 hover:bg-slate-100 hover:text-sky-500 rounded-2xl hover:font-semibold group-[.active]:text-gray-900 group-[.selected]:bg-slate-100 group-[.selected]:text-sky-500">
-                    <i class="ri-list-ordered mr-3 text-lg"></i>
-                    <span class="text-sm">Supplier</span>
-                </a>
-            </li>
-            @endcan
-            @can('transaction')
-            <li class="mb-1 group">
-                <a href="/dashboard/transaction/create" class="flex items-center py-2 px-4 text-gray-600 hover:bg-slate-100 hover:text-sky-500 rounded-2xl hover:font-semibold group-[.active]:text-gray-900 group-[.selected]:bg-slate-100 group-[.selected]:text-sky-500">
-                    <i class="ri-user-2-line mr-3 text-lg"></i>
-                    <span class="text-sm">Transaksi</span>
-                </a>
-                <ul class="pl-7 mt-2 group-[.selected]:block">
-                    <li class="mb-4">
-                        <a href="/dashboard/transaction/history" class="text-gray-500 text-sm flex items-center hover:text-black before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3">Riwayat</a>
-                    </li> 
-                </ul>
-            </li>
-            @endcan
-            @can('admin')
-            <li class="mb-1 group">
-                <a href="/dashboard/inventory" class="flex items-center py-2 px-4 text-gray-600 hover:bg-slate-100 hover:text-sky-500 rounded-2xl hover:font-semibold group-[.active]:text-gray-900 group-[.selected]:bg-slate-100 group-[.selected]:text-sky-500">
-                    <i class="ri-user-2-line mr-3 text-lg"></i>
-                    <span class="text-sm">Inventaris</span>
-                </a>
-            </li>
-            <li class="mb-1 group">
-                <a href="/dashboard/staff" class="flex items-center py-2 px-4 text-gray-600 hover:bg-slate-100 hover:text-sky-500 rounded-2xl hover:font-semibold group-[.active]:text-gray-900 group-[.selected]:bg-slate-100 group-[.selected]:text-sky-500">
-                    <i class="ri-user-2-line mr-3 text-lg"></i>
-                    <span class="text-sm">Staff</span>
-                </a>
-            </li>
-            <li class="mb-1 group">
-                <a href="/" class="flex items-center py-2 px-4 text-gray-600 hover:bg-slate-100 hover:text-sky-500 rounded-2xl hover:font-semibold group-[.active]:text-gray-900 group-[.selected]:bg-slate-100 group-[.selected]:text-sky-500">
-                    <i class="ri-home-5-line mr-3 text-lg"></i>
-                    <span class="text-sm">Home</span>
-                </a>
-            </li>
-            @endcan
-            <li class="mb-1 group">
-                <form action="/logout" method="post" class="flex items-center py-2 px-4 text-gray-600 hover:bg-slate-100 hover:text-sky-500 rounded-2xl hover:font-semibold group-[.active]:text-gray-900 group-[.selected]:bg-slate-100 group-[.selected]:text-sky-500">
-                  <i class="ri-logout-circle-line mr-3 text-lg"></i>
-                  @csrf
-                  <button type="submit" class="text-sm w-full text-left">logout</button>
-                </form>
-              </li>
-        </ul>
-    </div>
-    <div class="fixed top-0 left-0 w-full h-full bg-black/50 z-40 md:hidden sidebar-overlay"></div>
-    <!-- end: Sidebar -->
-
-    <!-- start: Main -->
-    <main class="w-full md:w-[calc(100%-256px)] md:ml-64 bg-gray-100 min-h-screen transition-all main">
-        <div class="py-2 px-6 bg-white flex items-center shadow-md shadow-black/5 sticky top-0 left-0 z-30">
-            <button type="button" class="text-lg text-gray-600 sidebar-toggle">
+<x-main>
+    <x-slot:title>
+        Prima Grosir | Produk
+    </x-slot:title>
+    <main class="w-full xl:w-[calc(100%-240px)] bg-body xl:ml-60 bg-fourth transition-all main">
+        <div class="py-4 px-6 bg-primary flex items-center sticky top-0 left-0 z-30 border-b-2 border-b-gray-300">
+            <button type="button" class="text-lg sidebar-toggle">
                 <i class="ri-menu-line"></i>
             </button>
-            <ul class="flex items-center text-sm ml-4">
-                <li class="text-gray-600 mr-2 font-medium">Kamar</li>
+            <div class="ml-4">
+                <h1 class="text-xl font-semibold">Produk</h1>
+            </div>
+            <ul class="flex items-center gap-5 text-sm ml-auto">
+                <img src="/img/notif.svg" alt="">
+                <ul class="ml-4 hidden sm:flex items-center">
+                    <div class="relative w-full max-w-md">
+                        <input
+                            type="text"
+                            class="w-full xl:w-full pr-4 pl-12 py-2.5 bg-body border-2 border-gray-300 placeholder:text-sm rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                            placeholder="Pencarian">
+                        <div class="absolute inset-y-0 left-0 flex items-center pr-3 ml-4 cursor-pointer">
+                            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </ul>
             </ul>
-            <ul class="ml-auto flex items-center">
-                <li class="mr-1 dropdown">
-                    <button type="button" class="dropdown-toggle text-gray-400 w-8 h-8 rounded flex items-center justify-center hover:bg-gray-50 hover:text-gray-600">
-                        <i class="ri-search-line"></i>
-                    </button>
-                    <div class="dropdown-menu shadow-md shadow-black/5 z-30 hidden max-w-xs w-full bg-white rounded-md border border-gray-100">
-                        <form action="" class="p-4 border-b border-b-gray-100">
-                            <div class="relative w-full">
-                                <input type="text" class="py-2 pr-4 pl-10 bg-gray-50 w-full outline-none border border-gray-100 rounded-md text-sm focus:border-blue-500" placeholder="Search...">
-                                <i class="ri-search-line absolute top-1/2 left-4 -translate-y-1/2 text-gray-400"></i>
+        </div>
+        <div class="p-4 xl:p-6">
+            <div class="">
+                <div class="bg-primary p-6 xl:px-8 border-2 border-gray-300 rounded-lg">
+                    <div class="flex justify-between items-center mb-4 xl:mb-8">
+                        <h1 class="font-semibold text-lg">Tambah Produk</h1>
+                    </div>
+                    <div class="jantuk">
+                        <form action="/dashboard/product" method="post" class="">
+                            @csrf
+                            <div class="w-full flex flex-wrap justify-between">
+                                <div class="w-[48.5%] mb-5">
+                                    <label for="id_category" class="font-semibold text-base mb-4 block">Nama Kategori</label>
+                                    <select name="id_category" id="" value="{{ old('id_category',  ) }}" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3">
+                                        @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name_category}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('id_category')
+                                        <div class="text-red-500 text-sm">
+                                        {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="w-[48.5%] mb-5">
+                                    <label for="name_product" class="font-semibold text-base mb-4 block">Nama Produk</label>
+                                    <input type="text" name="name_product" id="name_product"  value="{{ old('name_product') }}" class="text-sm p-3 rounded-md w-full border-[1.5px] font-medium border-black border-opacity-[16%]" placeholder="Masukkan Nama" required />
+                                    @error('name_product')
+                                        <div class="text-red-500 text-sm">
+                                        {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="w-[48.5%] mb-5">
+                                    <label for="slug_product" class="font-semibold text-base mb-4 block">Slug Produk</label>
+                                    <input type="text" name="slug_product" id="slug_product"  value="{{ old('slug_product') }}" class="text-sm p-3 rounded-md w-full border-[1.5px] font-medium border-black border-opacity-[16%]" required readonly/>
+                                    @error('slug_product')
+                                        <div class="text-red-500 text-sm">
+                                        {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="w-[48.5%] mb-5">
+                                    <label for="price" class="font-semibold text-base mb-4 block">Harga</label>
+                                    <div class="flex items-center gap-1 text-sm p-3 rounded-md w-full border-[1.5px] font-medium border-black border-opacity-[16%]">
+                                        <span>Rp.</span>
+                                        <input type="integer" name="price" id="price" value="{{ old('price') }}" class="w-full outline-none" required/>
+                                        @error('price')
+                                            <div class="text-red-500 text-sm">
+                                            {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="w-[48.5%] mb-5">
+                                    <label for="stock" class="font-semibold text-base mb-4 block">Stock</label>
+                                    <input type="number" name="stock" id="stock"  value="{{ old('stock') }}" class="text-sm p-3 rounded-md w-full border-[1.5px] font-medium border-black border-opacity-[16%]" placeholder="Masukkan Stock"/>
+                                    @error('stock')
+                                        <div class="text-red-500 text-sm">
+                                        {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
                             </div>
+                            <button type="submit" name="create" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Buat Supplier</button>
+                            <a href="/dashboard/product" class="p-3 text-sm rounded-lg bg-gray-500 text-white font-medium">kembali</a>
                         </form>
                     </div>
-                </li>
-                <li class="dropdown">
-                    <button type="button" class="dropdown-toggle text-gray-400 w-8 h-8 rounded flex items-center justify-center hover:bg-gray-50 hover:text-gray-600">
-                        <i class="ri-notification-3-line"></i>
-                    </button>
-                </li>
-                <li class="dropdown ml-3 flex items-center gap-3">
-                  
-                    <ul class="dropdown-menu shadow-md shadow-black/5 z-30 hidden py-1.5 rounded-md bg-white border border-gray-100 w-full max-w-[140px]">
-                        <li>
-                            <a href="#" class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-blue-500 hover:bg-gray-50">Profile</a>
-                        </li>
-                        <li>
-                            <a href="#" class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-blue-500 hover:bg-gray-50">Settings</a>
-                        </li>
-                        <li>
-                            <a href="#" class="flex items-center text-[13px] py-1.5 px-4 text-gray-600 hover:text-blue-500 hover:bg-gray-50">Logout</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>  
-
-        {{-- @foreach ($product as $pro)
-        {{ $pro->category->name_category }}
-       @endforeach --}}
-
-        <div class="p-6">
-            <form action="/dashboard/product" method="post" class="max-w-2xl p-6 bg-white rounded-lg">
-                <h1 class="text-xl font-semibold mb-8">Buat Produk :</h1>
-                @csrf
-                  <div class="">
-                    <div class="">
-                      <div class="mb-5">
-                        <label for="id_product" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Id Produk</label>
-                        <input type="integer" name="id_product" id="id_product"  value="{{ old('id_product') }}" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-100 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="" required />
-                        @error('id_product')
-                            <div class="text-red-500 text-sm">
-                              {{ $message }}
-                            </div>
-                        @enderror
-                      </div>
-                      <div class="mb-5">
-                        <label for="id_category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Nama Kategori</label>
-                        
-                         <select name="id_category" id="" value="{{ old('id_category',  ) }}" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3 dark:bg-secondary dark:border-secondary dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
-                            @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->name_category}}</option>
-                            @endforeach
-                          </select>
-                        @error('id_category')
-                            <div class="text-red-500 text-sm">
-                              {{ $message }}
-                            </div>
-                        @enderror
-                      </div>
-                      <div class="mb-5">
-                        <label for="name_product" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Nama Produk</label>
-                        <input type="text" name="name_product" id="name_product"  value="{{ old('name_product') }}" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-100 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="" required />
-                        @error('name_product')
-                            <div class="text-red-500 text-sm">
-                              {{ $message }}
-                            </div>
-                        @enderror
-                      </div>
-                      <div class="mb-5">
-                        <label for="slug_product" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Slug Produk</label>
-                        <input type="text" name="slug_product" id="slug_product"  value="{{ old('slug_product') }}" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-100 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required readonly/>
-                        @error('slug_product')
-                            <div class="text-red-500 text-sm">
-                              {{ $message }}
-                            </div>
-                        @enderror
-                      </div>
-                      <div class="mb-5">
-                        <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga</label>
-                        <input type="integer" name="price" id="price"  value="{{ old('price') }}" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-100 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required/>
-                        @error('price')
-                            <div class="text-red-500 text-sm">
-                              {{ $message }}
-                            </div>
-                        @enderror
-                      </div>
-                      <div class="mb-5">
-                        <label for="stock" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Stock</label>
-                        <input type="integer" name="stock" id="stock"  value="{{ old('stock') }}" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-100 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"/>
-                        @error('stock')
-                            <div class="text-red-500 text-sm">
-                              {{ $message }}
-                            </div>
-                        @enderror
-                      </div>
-                    </div>
-                      <button type="submit" name="create" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Tambah Fasilitas</button>
-                      <a href="/dashboard/product/category" class="p-3 text-sm rounded-lg bg-gray-500 text-white font-medium">kembali</a>
-                  </div>
-            </form>
-        </div>  
+                </div>
+            </div>
+        </div>
     </main>
-
-  
     <script>
-        const name = document.querySelector('#name_product');
+         const name = document.querySelector('#name_product');
         const slug = document.querySelector('#slug_product');
     
         name.addEventListener('change', function() {
@@ -220,6 +108,4 @@
                 .then(data => slug.value = data.slug_product); 
         });
     </script>
-    <script src="{{ asset('js/sidebar.js') }}"></script>
-</body>
-</html>
+</x-main>

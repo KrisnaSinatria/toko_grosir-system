@@ -22,9 +22,9 @@ class LoginController extends Controller
         if(Auth::attempt($credentials)){
             $request->session()->regenerate();
             if(auth()->user()->role == 'admin'){
-                return redirect('/dashboard')->with('loginsuccess', 'Anda telah berhasil login.');
+                return redirect('/dashboard')->with('loginSuccess', 'Anda telah berhasil login.');
             }elseif(auth()->user()->role == 'staff'){
-                return redirect('/dashboard/transaction/create')->with('loginsuccess', 'Anda telah berhasil login.');
+                return redirect('/dashboard/transaction/create')->with('loginSuccess', 'Anda telah berhasil login.');
             }
         }
 

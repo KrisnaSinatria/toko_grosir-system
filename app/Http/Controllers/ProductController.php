@@ -38,20 +38,21 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        do {
+            $code = random_int(1000000, 9999999);
+        } while (Product::where("code_product", "=", $code)->first());
+
         $validatedData = $request->validate([
-            'id_product' => 'required|int',
+            'code_product' => 'int',
             'id_category' => 'required|',
             'name_product' => 'required|string',
             'slug_product' => 'required|string',
             'price' => 'required|int',
             'stock' => ''
            ]);
-    
-    
+
+           $validatedData['code_product'] = $code;
            $product = Product::create($validatedData);
-    
-        
-    
            return redirect('dashboard/product')->with('createProduct', 'pembuatan produk berhasil');
     }
 
