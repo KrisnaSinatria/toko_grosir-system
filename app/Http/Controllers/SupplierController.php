@@ -32,6 +32,7 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $validatedData = $request->validate([
             'name' => 'required',
             'address' => 'required',
