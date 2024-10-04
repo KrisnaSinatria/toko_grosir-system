@@ -33,18 +33,18 @@
                         <span class="text-sm xl:text-sm font-semibold">Dashboard</span>
                     </a>
                 </li>
-                <li class="mb-1 group {{ request()->is('dashboard/product*') ? 'active' : '' }}">
+                <li class="mb-1 group {{ request()->is('dashboard/culture*') ? 'active' : '' }}">
                     <div class="flex items-center">
                         <img src="/img/Rectangle 17040.svg" class="-ml-4 hidden group-[.active]:block" alt="">
                         <a href="/dashboard/product"
-                            class="flex items-center {{ request()->is('dashboard/product*') ? 'py-2 ml-2 px-4' : 'py-4 px-4' }} text-black rounded-lg group-[.active]:text-secondary group-[.selected]:bg-secondary group-[.selected]:text-white">
+                            class="flex items-center {{ request()->is('dashboard/culture*') ? 'py-2 ml-2 px-4' : 'py-4 px-4' }} text-black rounded-lg group-[.active]:text-secondary group-[.selected]:bg-secondary group-[.selected]:text-white">
                             <img src="{{ request()->is('dashboard/product*') ? '/img/Layer_1 (7).svg' : '/img/Layer_1 (1).svg' }}" alt="" class="mr-4 w-[18px]">
-                            <span class="text-sm xl:text-sm font-semibold text-black">Produk</span>
+                            <span class="text-sm xl:text-sm font-semibold text-black">Culture</span>
                         </a>
                     </div>
                     <ul class="pl-7 mt-2">
                         <li class="mb-4">
-                            <a href="/dashboard/product/category" class="text-gray-400 text-sm flex items-center before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3">Kategory</a>
+                            <a href="/dashboard/culture/category" class="text-gray-400 text-sm flex items-center before:contents-[''] before:w-1 before:h-1 before:rounded-full before:bg-gray-300 before:mr-3">Kategory</a>
                         </li>
                     </ul>
                 </li>

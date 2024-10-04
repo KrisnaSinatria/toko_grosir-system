@@ -33,7 +33,6 @@ Route::post('/',  [LoginController::class, 'authenticate']);
 Route::get('/logout',  [LoginController::class, 'logout']);
 Route::post('/logout',  [LoginController::class, 'logout']);
 
-// Route::get('/dashboard/transaction/create', [SearchController::class, 'search']);
 
 Route::group(['middleware' => ['admin:admin']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);

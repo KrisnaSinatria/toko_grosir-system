@@ -8,7 +8,7 @@
                 <i class="ri-menu-line"></i>
             </button>
             <div class="ml-4">
-                <h1 class="text-xl font-semibold">Produk</h1>
+                <h1 class="text-xl font-semibold">Riwayat</h1>
             </div>
             <ul class="flex items-center gap-5 text-sm ml-auto">
                 <img src="/img/notif.svg" alt="">
